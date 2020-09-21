@@ -34,15 +34,15 @@ class EquipoController extends Controller
 
         $this->validate($request,[
             'material' => 'required|string',
-            'id_color' => 'required|integer',
+            'color' => 'required|integer',
 
 
         ]);
 
         return Articulo::create([
 
-            'material' =>$request['serial'],
-            'id_color' =>$request['id_color'],
+            'material' =>$request['material'],
+            'id_color' =>$request['color'],
             'id_recurso' => $id
 
         ]);

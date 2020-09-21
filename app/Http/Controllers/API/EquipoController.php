@@ -35,7 +35,7 @@ class EquipoController extends Controller
         $this->validate($request,[
             'serial' => 'required|string',
             'anno' => 'required|integer',
-            'id_color' => 'required|integer',
+            'color' => 'required|integer',
 
 
         ]);
@@ -44,7 +44,7 @@ class EquipoController extends Controller
 
             'serial' =>$request['serial'],
             'anno' =>$request['anno'],
-            'id_color' =>$request['id_color'],
+            'id_color' =>$request['color'],
             'id_recurso' => $id
 
         ]);

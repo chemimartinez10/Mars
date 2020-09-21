@@ -38,10 +38,10 @@ class VehiculoController extends Controller
             'anno' => 'required|integer',
             'pasajeros' => 'required|integer',
             'km' => 'required|integer',
-            'id_tipoVehiculo' => 'required|integer',
-            'id_color' => 'required|integer',
-            'id_combustible' => 'required|integer',
-            'id_modelo' => 'required|integer',
+            'tipoVehiculo' => 'required|integer',
+            'color' => 'required|integer',
+            'combustible' => 'required|integer',
+            'modelo' => 'required|integer',
 
 
         ]);
@@ -52,10 +52,10 @@ class VehiculoController extends Controller
             'anno' =>$request['anno'],
             'pasajeros' =>$request['pasajeros'],
             'km' =>$request['km'],
-            'id_tipoVehiculo' =>$request['id_tipoVehiculo'],
-            'id_color' =>$request['id_color'],
-            'id_combustible' =>$request['id_combustible'],
-            'id_modelo' =>$request['id_modelo'],
+            'id_tipoVehiculo' =>$request['tipoVehiculo'],
+            'id_color' =>$request['color'],
+            'id_combustible' =>$request['combustible'],
+            'id_modelo' =>$request['modelo'],
             'id_recurso' =>$id,
 
         ]);

@@ -36,10 +36,10 @@ class MaquinariaController extends Controller
         $this->validate($request,[
             'placa' => 'required|string',
             'anno' => 'required|integer',
-            'pasajeros' => 'required|decimal',
-            'id_color' => 'required|integer',
-            'id_combustible' => 'required|integer',
-            'id_modelo' => 'required|integer',
+            'pasajeros' => 'required|numeric',
+            'color' => 'required|integer',
+            'combustible' => 'required|integer',
+            'modelo' => 'required|integer',
 
 
         ]);
@@ -49,9 +49,9 @@ class MaquinariaController extends Controller
             'descripcion' =>$request['descripcion'],
             'anno' =>$request['anno'],
             'peso' =>$request['peso'],
-            'id_color' =>$request['id_color'],
-            'id_combustible' =>$request['id_combustible'],
-            'id_modelo' =>$request['id_modelo'],
+            'id_color' =>$request['color'],
+            'id_combustible' =>$request['combustible'],
+            'id_modelo' =>$request['modelo'],
             'id_recurso' =>$id,
 
         ]);

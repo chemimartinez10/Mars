@@ -34,13 +34,13 @@ class EquipoController extends Controller
         $id=Movimiento::max('id');
 
         $this->validate($request,[
-            'cantidad' => 'required|decimal',
+            'cantidad' => 'required|numeric',
             'id_recurso' => 'required|integer',
             'id_operacion' => 'required|integer',
             'id_movimiento' => 'required|integer',
             'fecha' => 'required|date',
             'documento' => 'required|string',
-            'observacion' => 'required|text',
+            'observacion' => 'required|string',
 
 
         ]);

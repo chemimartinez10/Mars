@@ -7,7 +7,11 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import { Form, HasError, AlertError } from 'vform';
+import {
+    Form,
+    HasError,
+    AlertError
+} from 'vform';
 import moment from 'moment';
 
 
@@ -25,10 +29,10 @@ window.Swal = Swal;
 
 
 const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
 });
 window.Toast = Toast;
 
@@ -50,44 +54,73 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 
 
-let routes = [
-  { path: '/dashboard', component: require('./components/Dashboard.vue').default },
-  { path: '/personal',  component: require('./components/Personal.vue').default },
-  { path: '/esa',       component: require('./components/ESA.vue').default },
-  { path: '/contratos', component: require('./components/Contratos.vue').default },
-  { path: '/developer', component: require('./components/Developer.vue').default },
-  { path: '/profile',   component: require('./components/Profile.vue').default },
-  { path: '/users',     component: require('./components/Users.vue').default },
-  { path: '/vem',       component: require('./components/VEM.vue').default },
-  { path: '/inventario',component: require('./components/Inventario.vue').default },
-  { path: '/nomina',    component: require('./components/Nomina.vue').default }
+let routes = [{
+        path: '/dashboard',
+        component: require('./components/Dashboard.vue').default
+    },
+    {
+        path: '/personal',
+        component: require('./components/Personal.vue').default
+    },
+    {
+        path: '/esa',
+        component: require('./components/ESA.vue').default
+    },
+    {
+        path: '/contratos',
+        component: require('./components/Contratos.vue').default
+    },
+    {
+        path: '/developer',
+        component: require('./components/Developer.vue').default
+    },
+    {
+        path: '/profile',
+        component: require('./components/Profile.vue').default
+    },
+    {
+        path: '/users',
+        component: require('./components/Users.vue').default
+    },
+    {
+        path: '/vem',
+        component: require('./components/VEM.vue').default
+    },
+    {
+        path: '/inventario',
+        component: require('./components/Inventario.vue').default
+    },
+    {
+        path: '/nomina',
+        component: require('./components/Nomina.vue').default
+    }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  routes // short for `routes: routes`
+    mode: 'history',
+    routes // short for `routes: routes`
 })
 
 const options = {
-  color: '#bffaf3',
-  failedColor: '#874b4b',
-  thickness: '5px',
-  transition: {
-    speed: '0.2s',
-    opacity: '0.6s',
-    termination: 300
-  },
-  autoRevert: true,
-  location: 'left',
-  inverse: false
+    color: '#bffaf3',
+    failedColor: '#874b4b',
+    thickness: '5px',
+    transition: {
+        speed: '0.2s',
+        opacity: '0.6s',
+        termination: 300
+    },
+    autoRevert: true,
+    location: 'left',
+    inverse: false
 }
 
 
-Vue.filter('upText', function(text){
+Vue.filter('upText', function (text) {
     return text.charAt(0).toUpperCase() + text.slice(1)
 });
 
-Vue.filter('myDate', function(created){
+Vue.filter('myDate', function (created) {
     return moment(created).format('MMMM Do YYYY');
 });
 
@@ -133,19 +166,90 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import {
+    ValidationProvider,
+    ValidationObserver,
+    extend
+} from "vee-validate";
+import {
+    required,
+    email,
+    excluded
+} from "vee-validate/dist/rules";
+var correos = [],
+    razones = [],
+    seriales = [];
+
+window.Fuego = new Vue();
+
+Fuego.$on("correos", data => {
+    correos = data;
+});
+Fuego.$on("razones", data => {
+    razones = data;
+});
+Fuego.$on("seriales", data => {
+    seriales = data;
+});
+
+function comparador(c, array) {
+    let validador = false;
+
+    for (let i = 0; i < array.length; i++) {
+        if (c === array[i]) {
+            validador = true;
+        }
+    }
+
+    return validador;
+}
+
+extend("requerido", {
+    ...required,
+    message: "El campo {_field_} es obligatorio"
+});
+extend("correo", {
+    ...email,
+    message: "Ingrese una direccion de correo válida"
+});
+extend("excluyeC", {
+    validate(value) {
+        if (!comparador(value, correos)) {
+            return true;
+        }
+        return "Este correo ya ha sido utilizado";
+    }
+});
+extend("excluyeSerial", {
+    validate(value) {
+        if (!comparador(value, seriales)) {
+            return true;
+        }
+        return "Este serial ya ha sido utilizado";
+    }
+});
+extend("excluyeR", {
+    validate(value) {
+        if (!comparador(value, razones)) {
+            return true;
+        }
+        return "Esta razón social ya ha sido utilizado";
+    }
+});
+
 
 const app = new Vue({
     el: '#app',
-    data:{
-      busqueda:'',
-      filter: null,
-      filterOn: [],
+    data: {
+        busqueda: '',
+        filter: null,
+        filterOn: [],
     },
-    methods:{
-      buscar(){
-        this.busqueda=this.filter
-        Fire.$emit('buscando');
-      }
+    methods: {
+        buscar() {
+            this.busqueda = this.filter
+            Fire.$emit('buscando');
+        }
     },
     router,
 });

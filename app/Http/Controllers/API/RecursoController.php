@@ -28,9 +28,8 @@ class RecursoController extends Controller
     {
         $this->validate($request,[
             'nombre'    => 'required|string',
-            'id_marca'    => 'required|integer',
-            'observacion'    => 'required|text',
-            'cantidad'    => 'required|decimal'
+            'observacion'    => 'required|string',
+            'cantidad'    => 'required|numeric'
         ]);
 
     return Recurso::create([
@@ -39,9 +38,9 @@ class RecursoController extends Controller
         'nombre' => $request['nombre'],
         'cantidad' => $request['cantidad'],
         'observacion' => $request['observacion'],
-        'id_marca' => $request['id_marca'],
-        'id_tipo' => $request['id_tipo'],
-        'id_estado' => $request['id_estado'],
+        'id_marca' => $request['marca'],
+        'id_tipo' => $request['tipo'],
+        'id_estado' => $request['estado'],
     ]);
     }
 

@@ -29,7 +29,7 @@ class MovimientoController extends Controller
         $this->validate($request,[
             'id_usuario'    => 'required|integer',
             'id_destinatario'    => 'required|integer',
-            'observacion'    => 'required|text',
+            'observacion'    => 'required|string',
             'motivo'    => 'required|string'
         ]);
 
